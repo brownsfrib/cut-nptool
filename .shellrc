@@ -1,0 +1,33 @@
+if [ -f .shell_functions ]; then
+	. .shell_functions
+fi
+if [ -f .shell_aliases ]; then
+	. .shell_aliases
+fi
+
+export HISTTIMEFORMAT='%F~%T $ '
+
+echo -e "Running container on \033[1;33m$SINGULARITY_NAME\033[0m"
+
+PROMPT_COMMAND="ps1ID=$imgName"
+export PS1='\[\033[1;93m\]($ps1ID)\[\033[0m\] <\h:\W> '
+
+# Setting Linux libraries
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+# Sourcing modules
+source /etc/profile.d/modules.sh
+
+# Loading in modules
+module purge
+module load geant4/10.07.00
+source /mnt/misc/sw/x86_64/Debian/10/geant4/gnu/10.07.00/share/Geant4-10.7.0/geant4make/geant4make.sh
+module load cmake/3.16.9
+module load gnu/gcc/9.3
+module load root/gnu/6.24.02
+source /mnt/misc/sw/x86_64/Debian/10/root/gnu/6.24.02/bin/thisroot.sh
+source $basePath/nptool/nptool.sh
+module load xerces/3.2.3
+module list
+
+

@@ -1,0 +1,11 @@
+Root.Fitter: no
+
+# Histogram settings
+gROOT.SetStyle: Plain
+gStyle.SetTitleOffset: 0.8
+
+gStyle.SetTitleSize: 0.10
+gStyle.SetMarkerSize: 0.5
+
+Rint.Logon: $basePath/.rootlogon.C
+
