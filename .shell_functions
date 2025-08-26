@@ -1,0 +1,12 @@
+
+function recomplile()
+{
+	cd $basePath/nptool/NPLib
+	cmake ./ -DNPTOOL_DETLIST="CUBE Hira"
+	make -j2 install
+
+	cd $basePath/nptool/NPSimulation
+	cmake ./ -DNPTOOL_DETLIST="CUBE Hira"
+	make -j2 install
+
+}
