@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test input file for producing fission fragments based on:
+% 	- Mass ratio data for a 32S + 232Th beam
+% 	- The AME20 database of known nuclei
+% 	- Viola systematics, given the parameters of the reaction
+% Neutron evaporation is not taken into account here
+% This input file is set up such that it can be expanded to different systems later
+
+% Note: The choice of fission fragments is uniform and independtly distributed
+% That is, I give no preference to what types of fragments are formed -
+% After choosing a mass ratio, I randomly select an isobar for fragment 1, 
+% and knowing the amount of nucleons before the collision, I select the corresponding
+% isobar for fragment 2. I do NOT check if fragment 2 is real or not. You can do this easily,
+% but I don't want to because CUBE isn't sensitive to Z values anyway. Doing this additonal 
+% checking will significantly slow down simulation time.
+
+
+
+% Send the event generator class to NPTool
+ViolaFission
+
+
+ % This is the format for passing in projectile/target profiles
+ % A/Z values are fetched from the AME20 database. 
+ % If the target/projectile doesn't exist in that database, the class will exit
+
+ projectile = 32S
+ target = 232Th
+
+
+ % Beam energy for projectile. Required for boosting into the lab frame.
+ beamEnergy = 177 MeV
+
+
+ % This requires that you have a mass ratio histogram, 
+ % with fits for the elastic/fission data present.
+ % This path pulls in said fits and uses them to randomly produce fragments
+ % Three fits must exist, and must be named:
+ % 	- beamElasticFit
+ % 	- targetElasticFit
+ % 	- fissionFit
+
+ fitPath = /mnt/simulations/hira/Sachet/EventGenerator/DataFitting/32S_232Th_177MeV_Data.root
+
